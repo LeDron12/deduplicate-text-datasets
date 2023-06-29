@@ -46,8 +46,11 @@ save_dir = args.save_dir
 dataset_name = args.name
 
 
-ds = tfds.load(dataset_name, split=split, shuffle_files=False, batch_size=2**16,
-               data_dir=data_dir)
+data_train_tf = tf.data.experimental.make_csv_dataset(
+    data_dir,
+    batch_size=32,
+    ignore_errors=True
+)
 assert isinstance(ds, tf.data.Dataset)
 print(ds)
 
